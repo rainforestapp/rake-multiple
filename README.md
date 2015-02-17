@@ -1,6 +1,6 @@
 # Rake::Multiple
 
-TODO: Write a gem description
+Rake::Multiple is the easiest way to run the same Rake task in multiple forked processes. It's particularly useful if your app is hosted on a PaaS provider, such as Heroku, and you want to run multiple worker processes by container, saving money.
 
 ## Installation
 
@@ -14,13 +14,25 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install rake-multiple
-
 ## Usage
 
-TODO: Write usage instructions here
+Rake::Multiple can invoke any task by prefixing the `multiple` namespace to the task. So if you're running:
+
+```bash
+rake jobs:work
+```
+
+You can then run two processes in your app with the following command:
+
+```bash
+MULTIPLE_WORKER_COUNT=2 rake multiple:jobs:work
+```
+
+If your tasks need has dependencies, you can run a specific dependency by using the `MULTIPLE_EXECUTE_TASK` variable.
+
+```bash
+MULTIPLE_WORKER_COUNT=2 MULTIPLE_EXECUTE_TASK=environment rake multiple:jobs:work
+```
 
 ## Contributing
 
